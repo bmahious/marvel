@@ -1,4 +1,5 @@
 import React, {useRef, useEffect, useState, Fragment} from 'react'
+import {Link} from 'react-router-dom' 
 
 const Landing = () => {
 
@@ -13,13 +14,26 @@ useEffect(() => {
   }, 2000)
 }, [])
 
+const hundleMouseLeft = () => {
+  refWolverine.current.classList.add('leftImg')
+}
+const hundleMouseOutLeft = () => {
+  refWolverine.current.classList.remove('leftImg')
+}
+const hundleMouseRight = () => {
+  refWolverine.current.classList.add('rightImg')
+}
+const hundleMouseOutRight = () => {
+  refWolverine.current.classList.remove('rightImg')
+}
+
 const DisplayBtn = btn && (
   <Fragment>
           <div className='leftBox'>
-            <button className='btn-welcome'> Inscription</button>
+            <Link onMouseOver={hundleMouseLeft} onMouseOut={hundleMouseOutLeft} className='btn-welcome' to='/signup'> Inscription</Link>
           </div>
           <div className='rightBox'>
-            <button className='btn-welcome'> Connexion</button>
+            <Link onMouseOver={hundleMouseRight} onMouseOut={hundleMouseOutRight} className='btn-welcome' to='/login'> Connexion</Link>
           </div>
   </Fragment>
 )
