@@ -12,9 +12,28 @@ const config = {
     appId: "1:701615688434:web:3c9fc08c32dc8512739e6b"
   };
 
-  const auth = getAuth(app)
 
-  // Inscription
+const app = initializeApp(config)
+export const auth = getAuth(app)
 
-//   signUpUser = () => this.auth.createUserWithEmailAndPassword()
-export const app = initializeApp(config)
+
+
+
+
+
+
+
+
+// class Firebase {
+//     constructor() {
+//         app.inializeApp(config)
+//         this.auth = app.auth()
+//     }
+//     signupUser = (email, password) =>
+//     this.auth.createUserWithEmailAndPassword(email, password)
+
+//     loginUser = (email, password) =>
+//     this.auth.signInWithEmailAndPassword(email, password)
+
+//     signoutUser = () => this.auth.signOut()
+// }
