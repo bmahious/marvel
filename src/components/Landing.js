@@ -11,7 +11,7 @@ useEffect(() => {
   setTimeout(() =>{
     refWolverine.current.classList.remove('startingImg')
     setBtn(true)
-  }, 2000)
+  }, 1000)
 }, [])
 
 const hundleMouseLeft = () => {

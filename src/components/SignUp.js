@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from './Firebase/Firebase'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
 
-const SignUp = () => {
+const SignUp = (props) => {
 
 const data = {
   pseudo: '',
@@ -20,6 +21,7 @@ const [error, setError] =  useState('')
 const hundleChange = e => {
   setLoginData({...loginData, [e.target.id] : e.target.value})
 } 
+const navigate = useNavigate();
 
 const hundleSubmit = e => {
   e.preventDefault();
@@ -27,12 +29,15 @@ const hundleSubmit = e => {
    createUserWithEmailAndPassword(auth, email, password)
   .then( (user) => {
     setLoginData({...data})
+    navigate('/welcom')
     .catch(error => {
       setError(error)
       setLoginData({...data})
     })
   })
 }
+
+
 
 // GESTION D'ERRUERS
 const errorMsg = error !== '' && <span> {error.message} </span>
@@ -46,7 +51,6 @@ const btn = pseudo === '' || email === '' ||  password === '' ||  password !== c
     <div className='signUpLoginBox'>
         <div className='slContainer'>
              <div className='formBoxLeftSignup'>
-
              </div>
              <div className='formBoxRight'>
                   <div className='formContent'>
@@ -71,6 +75,9 @@ const btn = pseudo === '' || email === '' ||  password === '' ||  password !== c
                           </div>
                           { btn }
                       </form>
+                      <div className="linkContainer">
+                        <Link className="simpleLink" to="/login"> Déja inscrit ? Connectez-vous </Link>
+                      </div>
                   </div>
              </div>
         </div>
