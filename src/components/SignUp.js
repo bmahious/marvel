@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from './Firebase/Firebase'
+import { auth, user } from './Firebase/Firebase'
 import { Link, useNavigate } from 'react-router-dom'
+import { setDoc } from 'firebase/firestore'
 
 
 
@@ -15,7 +16,7 @@ const data = {
   confirmPassword :''
 }
 
-const [loginData, setLoginData] =  useState(data)
+const [loginData, setLoginData] =  useState(data) 
 const [error, setError] =  useState('')
 
 const hundleChange = e => {
@@ -25,9 +26,15 @@ const navigate = useNavigate();
 
 const hundleSubmit = e => {
   e.preventDefault();
-  const {email, password} = loginData 
+  const {email, password, pseudo} = loginData 
    createUserWithEmailAndPassword(auth, email, password)
-  .then( (user) => {
+   .then(userAuthenticated => {
+     return setDoc(user(userAuthenticated.user.uid), {
+       pseudo,
+       email
+     })
+   })
+  .then(() => {
     setLoginData({...data})
     navigate('/welcom')
     .catch(error => {

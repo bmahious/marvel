@@ -1,6 +1,7 @@
 
 import { initializeApp } from 'firebase/app';
 import {getAuth} from 'firebase/auth'
+import {doc, getFirestore} from 'firebase/firestore'
 
 
 const config = {
@@ -12,11 +13,11 @@ const config = {
     appId: "1:701615688434:web:3c9fc08c32dc8512739e6b"
   };
 
-
+export const db = getFirestore()
 const app = initializeApp(config)
 export const auth = getAuth(app)
 
-
+export const user = uid => doc(db, `users/${uid}`)
 
 
 
@@ -37,3 +38,4 @@ export const auth = getAuth(app)
 
 //     signoutUser = () => this.auth.signOut()
 // }
+// user = (uid) => this.db.doc(`users/${uid}`)
