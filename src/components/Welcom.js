@@ -1,6 +1,7 @@
 import React, {useState, Fragment, useEffect} from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
-import {auth} from './Firebase/Firebase'
+import {auth, user} from './Firebase/Firebase'
+import { getDoc } from 'firebase/firestore'
 import { useNavigate} from 'react-router-dom'
 import Logout from './Logout'
 import Quiz from './Quiz'
@@ -11,6 +12,7 @@ const Welcom = () => {
 
   const navigate = useNavigate()
   const [userSession, setUserSession] = useState(null)
+  const [userData, setUserData] = useState({})
 
   
   useEffect(() => {
@@ -18,10 +20,26 @@ const Welcom = () => {
     let listener = onAuthStateChanged(auth, user => {
       user ? setUserSession(user) : navigate('/')
     }) 
+    // condition si l'utilisateur est authentifié
+    if (!!userSession) {
+        // réference collection 
+        const colRef = user(userSession.uid)
+        getDoc(colRef)
+        .then(doc => {
+          if (doc.exists()) {
+            const myData = doc.data()
+            setUserData(myData)
+          }
+        })
+        .catch(error =>{
+          console.log(error) 
+        })
+    }
+    
     return () => {
       listener()
     }
-  }, [navigate])
+  }, [navigate, userSession])
 
   return userSession === null ? (
       <Fragment>
@@ -32,7 +50,7 @@ const Welcom = () => {
       <div className='quiz-bg'>
           <div className='container'>
                 <Logout />
-                <Quiz />
+                <Quiz userData={userData} />
           </div>
       </div>
   )

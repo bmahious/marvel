@@ -13,10 +13,9 @@ const config = {
     appId: "1:701615688434:web:3c9fc08c32dc8512739e6b"
   };
 
-export const db = getFirestore()
 const app = initializeApp(config)
+export const db = getFirestore()
 export const auth = getAuth(app)
-
 export const user = uid => doc(db, `users/${uid}`)
 
 
