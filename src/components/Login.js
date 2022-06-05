@@ -34,7 +34,6 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
     .then(user => {
-      console.log(user)
       setEmail('')
       setPassword('')
       navigate('/welcom', {replace: true})

@@ -39,7 +39,6 @@ const DisplayBtn = btn && (
 )
 
 const refWolverine = useRef(null)
-console.log(refWolverine)
 
   return (
     <main ref={refWolverine} className='welcomePage'>
