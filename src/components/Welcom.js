@@ -29,8 +29,10 @@ const Welcom = () => {
           if (doc.exists()) {
             const myData = doc.data()
             setUserData(myData)
+            
           }
-        })
+        } )
+        
         .catch(error =>{
           console.log(error) 
         })
