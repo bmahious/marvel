@@ -15,7 +15,7 @@ class Quiz extends Component {
     options : [],
     idQuestion : 0,
     disabled : true,
-    userAnswer : null
+    userAnswer : null,
   }
    
   loadQuestions = level => {
