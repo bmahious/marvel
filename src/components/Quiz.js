@@ -144,28 +144,35 @@ class Quiz extends Component {
   }
 
 //getPercent = 100 / (this.state.maxQuestions / this.state.score );
+// getPercent = ( this.state.score / this.state.maxQuestions) * 100;
 
-getPercent = (maxQuest, ourScore) => (maxQuest / ourScore) * 100;
+//getPercent = (maxQuest, ourScore) => (maxQuest / ourScore) * 100;
+getPercent = (maxQuest, ourScore) => (ourScore / maxQuest) * 100;
+
+// this.getPercent
 
 
 
 
   gameOver = (prevState) =>{
-    const gradePercent = this.getPercent(this.state.maxQuestions, this.state.score)
-  
+    
+  const gradePercent = this.getPercent(this.state.maxQuestions, this.state.score)
+ 
     
     if (gradePercent >= 50) {
       this.setState({
         quizEnd : true,
         quizLevel:  this.state.quizLevel +1,
-        percent : gradePercent
+        percent : gradePercent,
+    
       })
     } else {
       this.setState({
-        quizEnd : false
+        percent : gradePercent,
+        quizEnd : true,
       })
     }
-    
+    console.log(gradePercent)
   }
 
   goNextLevel = param => {
@@ -177,10 +184,9 @@ getPercent = (maxQuest, ourScore) => (maxQuest / ourScore) * 100;
 
 
   render() {
-    console.log(this.state.quizEnd)
+
     const displayOptions = this.state.options.map((option, index) => {
 
-      
       return (
         <p 
             key={index} 
@@ -199,6 +205,7 @@ getPercent = (maxQuest, ourScore) => (maxQuest / ourScore) * 100;
         levelNames={this.state.levelNames}
         quizLevel={this.state.quizLevel}
         goNextLevel={this.goNextLevel}
+        percent={this.state.percent}
       />
     ) : (
        <div>
