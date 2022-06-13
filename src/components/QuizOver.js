@@ -1,5 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react'
+import {GiTrophyCup} from 'react-icons/gi'
 import { Link } from 'react-router-dom'
+import Loader from './Loader'
 
 const QuizOver = React.forwardRef(({maxQuestions, score, levelNames, quizLevel, goNextLevel, percent}, ref) => {
 
@@ -41,7 +43,7 @@ const percentage = 100 / (maxQuestions / score)
           </Fragment>
         ) : (
           <Fragment>
-              <p className='successMsg'> Bravo ! vous êtes un expert</p>
+              <p className='successMsg'> <GiTrophyCup size='25px'/>     Bravo ! vous êtes un expert</p>
               <button  
               onClick={() => goNextLevel(0)}
               className='BtnResult gameOver'>
@@ -92,8 +94,7 @@ const percentage = 100 / (maxQuestions / score)
     ) : (
       <tr>
             <td colSpan='3'>
-              <div className='loader'></div>
-               <p>pas de data </p>
+              <Loader />
             </td>
          
         </tr>
